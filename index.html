@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Цветовые нити — цветовой ассоциативный тест</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7EFE1;
+    --card:#FFFBF3;
+    --ink:#3E2A1B;
+    --muted:#8A7860;
+    --accent:#6B4423;
+    --accent-dark:#4A2F1C;
+    --accent-light:#F5EEE0;
+    --choco:#6B4423;
+    --border:#E8DCC8;
+    --radius:18px;
+    --shadow-sm: 0 1px 3px rgba(62,42,27,0.07);
+    --shadow-md: 0 4px 16px rgba(62,42,27,0.10), 0 1px 3px rgba(62,42,27,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(circle at 50% -8%, #FCF6E9 0%, var(--bg) 55%);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .brand-strip{
+    height:5px;
+    width:100%;
+    background:linear-gradient(90deg,#8B8D93,#3B5B8C,#4C7A3B,#D97F4E,#E8B93B,#D98CA0,#9C6B35,#3A2E42);
+  }
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding:40px 20px 80px;
+  }
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:30px;
+    font-weight:600;
+    margin:0 0 6px;
+    text-align:center;
+    color:var(--ink);
+  }
+  h2{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:19px;
+    font-weight:600;
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2::before{
+    content:'';
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--accent);
+    flex-shrink:0;
+  }
+  p{color:var(--ink);}
+  .muted{color:var(--muted);font-size:14px;}
+  .hero-art{
+    display:block;
+    width:100%;
+    max-width:340px;
+    height:auto;
+    margin:0 auto 10px;
+    filter:drop-shadow(0 6px 14px rgba(62,42,27,0.10));
+  }
+  @keyframes floatDot{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-4px);}
+  }
+  .hero-art circle{
+    animation:floatDot 3.4s ease-in-out infinite;
+    transform-origin:center;
+  }
+  .hero-art circle:nth-of-type(1){animation-delay:0s;}
+  .hero-art circle:nth-of-type(2){animation-delay:.25s;}
+  .hero-art circle:nth-of-type(3){animation-delay:.5s;}
+  .hero-art circle:nth-of-type(4){animation-delay:.75s;}
+  .hero-art circle:nth-of-type(5){animation-delay:1s;}
+  .hero-art circle:nth-of-type(6){animation-delay:1.25s;}
+  .hero-art circle:nth-of-type(7){animation-delay:1.5s;}
+  .hero-art circle:nth-of-type(8){animation-delay:1.75s;}
+  .gold-rule{
+    width:44px;height:2px;margin:0 auto 14px;
+    background:linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin:0 0 26px;
+  }
+  .intro-details summary{
+    cursor:pointer;
+    font-size:14px;
+    color:var(--accent);
+    margin-top:6px;
+    list-style:none;
+  }
+  .intro-details summary::-webkit-details-marker{display:none;}
+  .intro-details summary::before{content:"+ "; }
+  .intro-details[open] summary::before{content:"− "; }
+  .intro-details .content{margin-top:12px;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+    margin-bottom:18px;
+    box-shadow:var(--shadow-md);
+  }
+  .cta-card{
+    border-top:3px solid var(--accent);
+    background:linear-gradient(180deg, var(--accent-light) 0%, var(--card) 30%);
+  }
+  .cta-soft{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px dashed var(--border);
+  }
+  .cta-soft a{color:var(--accent-dark);}
+  .btn{
+    display:inline-block;
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+    background:linear-gradient(135deg, #8B5A34, var(--accent-dark));
+    color:#fff;
+    border:none;
+    padding:13px 24px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    box-shadow:0 3px 10px rgba(107,68,35,0.28);
+    transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+  }
+  .btn::before{
+    content:'';
+    position:absolute;
+    top:0;left:-60%;
+    width:35%;height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform:skewX(-20deg);
+    transition:left .55s ease;
+    pointer-events:none;
+  }
+  .btn:hover::before{left:130%;}
+  .btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(107,68,35,0.34);}
+  .btn:active{transform:translateY(0);box-shadow:0 2px 6px rgba(107,68,35,0.28);}
+  .btn.secondary{
+    background:transparent;
+    color:var(--accent-dark);
+    border:1.5px solid var(--accent);
+    box-shadow:none;
+  }
+  .btn.secondary:hover{background:var(--accent-light);}
+  .btn.ghost{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--border);
+    box-shadow:none;
+  }
+  .btn.ghost:hover{background:#F0E4CC;}
+  .btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+  .btn.btn-telegram{background:linear-gradient(135deg,#2AABEE,#229ED9);box-shadow:0 3px 10px rgba(34,158,217,0.38);}
+  .btn.btn-telegram:hover{box-shadow:0 6px 16px rgba(34,158,217,0.46);}
+  .btn.btn-max{background:linear-gradient(135deg,#4A90E2,#9B59D6);box-shadow:0 3px 10px rgba(107,120,225,0.38);}
+  .btn.btn-max:hover{box-shadow:0 6px 16px rgba(107,120,225,0.46);}
+  .btn-icon{vertical-align:-4px;margin-right:7px;}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  .row.between{justify-content:space-between;}
+  textarea{
+    width:100%;
+    min-height:120px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px;
+    font-family:inherit;
+    font-size:14px;
+    resize:vertical;
+    background:#FDF7EC;
+    color:var(--ink);
+  }
+  .sphere-list{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+  .sphere-opt{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 14px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .sphere-opt:hover{border-color:var(--accent);box-shadow:var(--shadow-sm);}
+  .sphere-opt.active{border-color:var(--accent);background:var(--accent-light);box-shadow:var(--shadow-sm);}
+  .sphere-opt b{display:block;font-size:14px;}
+  .sphere-opt span{font-size:13px;color:var(--muted);}
+  .chip-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 18px;}
+  .chip{
+    font-size:13px;
+    background:var(--accent-light);
+    color:var(--accent-dark);
+    padding:5px 11px;
+    border-radius:999px;
+    box-shadow:0 1px 2px rgba(62,42,27,0.05);
+  }
+  .progress{
+    height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:22px;
+  }
+  .progress > div{height:100%;background:linear-gradient(90deg,var(--accent),#A97C4F);transition:width .25s;}
+  .concept-card{
+    text-align:center;
+    padding:48px 20px;
+  }
+  .concept-card .word{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:30px;
+    font-weight:600;
+    margin:0 0 32px;
+  }
+  .swatches{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .swatch{
+    aspect-ratio:1;
+    border-radius:14px;
+    cursor:pointer;
+    border:3px solid transparent;
+    box-shadow:0 2px 6px rgba(62,42,27,0.10);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .swatch:hover{transform:scale(1.05);box-shadow:0 4px 12px rgba(62,42,27,0.16);}
+  .swatch.picked{border-color:var(--ink);box-shadow:0 0 0 3px rgba(62,42,27,0.12), 0 4px 10px rgba(62,42,27,0.18);}
+  .swatch.disabled{opacity:.25;cursor:default;pointer-events:none;}
+  .rank-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    max-width:420px;
+    margin:0 auto;
+  }
+  .rank-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:9px 12px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:#FDF7EC;
+    box-shadow:var(--shadow-sm);
+  }
+  .rank-row .num{font-family:'Fraunces',Georgia,serif;font-size:14px;color:var(--muted);width:18px;}
+  .rank-swatch{width:34px;height:34px;border-radius:9px;flex-shrink:0;box-shadow:0 1px 4px rgba(62,42,27,0.15);}
+  .group{margin-bottom:16px;}
+  .group .head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .group .chip-sw{width:22px;height:22px;border-radius:7px;flex-shrink:0;box-shadow:0 1px 4px rgba(62,42,27,0.15);}
+  .group ul{margin:0;padding-left:18px;}
+  .group li{font-size:14px;margin-bottom:2px;}
+  .pattern-item{
+    font-size:14px;
+    padding:11px 15px;
+    border-left:3px solid var(--accent);
+    background:var(--accent-light);
+    border-radius:0 10px 10px 0;
+    margin-bottom:10px;
+    box-shadow:var(--shadow-sm);
+  }
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  table td, table th{padding:8px 8px;border-bottom:1px solid var(--border);text-align:left;}
+  table tr:nth-child(even) td{background:#FBF3E3;}
+  th{color:var(--muted);font-weight:500;}
+  .privacy{
+    font-size:13px;
+    color:var(--muted);
+    background:var(--accent-light);
+    border-radius:10px;
+    padding:11px 15px;
+    margin-top:16px;
+  }
+  .about-note{
+    font-size:13px;
+    color:var(--muted);
+    border-top:1px solid var(--border);
+    padding-top:14px;
+    margin-top:14px;
+  }
+  details{margin-top:14px;}
+  details summary{cursor:pointer;font-size:14px;color:var(--accent);}
+  details .content{font-size:14px;margin-top:10px;color:var(--ink);}
+  .hidden{display:none !important;}
+  @keyframes fadeIn{
+    from{opacity:0;transform:translateY(6px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  #screen-about:not(.hidden),
+  #screen-sphere:not(.hidden),
+  #screen-words:not(.hidden),
+  #screen-sort:not(.hidden),
+  #screen-rank:not(.hidden),
+  #screen-results:not(.hidden){
+    animation:fadeIn .45s ease;
+  }
+  .toolbar{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;}
+  textarea#copyBox{position:absolute;left:-9999px;}
+  label.inline{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+  .site-footer{
+    margin-top:36px;
+    padding-top:22px;
+    border-top:1px solid var(--border);
+    text-align:center;
+  }
+  .footer-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:12px;
+  }
+  .footer-dots span{
+    width:7px;height:7px;border-radius:50%;display:inline-block;
+  }
+  .site-footer p{margin:0 0 10px;font-size:13px;color:var(--muted);}
+  .social-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .social-links a{
+    font-size:13px;
+    color:var(--accent-dark);
+    text-decoration:none;
+    padding:4px 2px;
+    border-bottom:1px solid transparent;
+    transition:border-color .15s ease;
+  }
+  .social-links a:hover{border-bottom-color:var(--accent);}
+  @media (max-width:380px){
+    .wrap{padding:28px 16px 60px;}
+    h1{font-size:26px;}
+    .concept-card .word{font-size:25px;}
+    .hero-art{max-width:270px;}
+    .card{padding:20px;}
+  }
+</style>
+</head>
+<body>
+<div class="brand-strip"></div>
+<div class="wrap">
+
+  <!-- ЭКРАН 0: О ТЕСТЕ -->
+  <div id="screen-about">
+    <svg class="hero-art" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20,72 C60,22 100,102 140,52 C180,12 220,102 260,42 C300,12 330,92 380,52"
+            fill="none" stroke="#c9c0b3" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <circle cx="20" cy="72" r="9" fill="#8B8D93"/>
+      <circle cx="75" cy="35" r="7" fill="#3B5B8C"/>
+      <circle cx="140" cy="52" r="10" fill="#4C7A3B"/>
+      <circle cx="195" cy="28" r="7" fill="#D97F4E"/>
+      <circle cx="260" cy="42" r="9" fill="#E8B93B"/>
+      <circle cx="312" cy="68" r="7" fill="#D98CA0"/>
+      <circle cx="347" cy="34" r="8" fill="#9C6B35"/>
+      <circle cx="380" cy="52" r="10" fill="#3A2E42"/>
+    </svg>
+    <h1>Цветовые нити</h1>
+    <div class="gold-rule"></div>
+    <p class="subtitle">цветовой ассоциативный тест</p>
+    <div class="card">
+      <h2>Для чего этот тест?</h2>
+      <p>Бывает так: вроде понятно, чего хочется, а сдвинуться с места не получается. Этот тест помогает увидеть скрытые связи, которые этому мешают.</p>
+
+      <details class="intro-details">
+        <summary>Узнать подробнее</summary>
+        <div class="content">
+          <p>Часто дело не в лени и не в обстоятельствах, а в связях, которые сложились внутри и работают незаметно. Вы распределяете понятия по цветам, и если два разных понятия оказываются под одним — это не совпадение, а сигнал о скрытой связи.</p>
+
+          <p>Например: если «рисование» оказалось рядом с «неудачей» — возможно, дело не в отсутствии таланта, а именно в этой незаметной связи.</p>
+
+          <p>Тест ничего не оценивает и не ставит диагноз. Он просто подсвечивает, куда стоит посмотреть внимательнее.</p>
+
+          <p>В дополнительном блоке можно проверить что угодно, что волнует именно сейчас — идею, отношения, работу, переезд, конкретного человека.</p>
+
+          <p class="about-note">Базовый список понятий входит в тест всегда, к нему добавляются понятия выбранной сферы и, по желанию, свои слова. В основе — метод цветовых метафор И. Л. Соломина (восьмицветный ряд восходит к тесту Люшера); это переработанная версия — своя палитра, свой список понятий, деление на сферы. Адаптация для личной практики — Галина Васильева, психолог.</p>
+        </div>
+      </details>
+
+      <div class="privacy">Ответы никуда не сохраняются и не отправляются — всё остаётся в этой вкладке браузера. На весь тест уходит 5–7 минут.</div>
+
+      <div class="toolbar">
+        <button class="btn" onclick="goTo('screen-sphere')">Далее</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 1: ВЫБОР СФЕРЫ -->
+  <div id="screen-sphere" class="hidden">
+    <h1>Какую сферу хотите исследовать?</h1>
+    <p class="muted">Выберите одну — ту, что сейчас актуальнее всего.</p>
+    <div class="card">
+      <div class="sphere-list" id="sphereList"></div>
+      <div class="toolbar">
+        <button class="btn ghost" onclick="goTo('screen-about')">Назад</button>
+        <button class="btn" id="toWordsBtn" onclick="goTo('screen-words')" disabled>Далее</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 2: СЛОВА -->
+  <div id="screen-words" class="hidden">
+    <h1 id="wordsTitle">Сфера</h1>
+    <div class="card">
+      <p class="muted" id="baseNote"></p>
+      <details>
+        <summary>Показать базовый список</summary>
+        <div class="content"><div class="chip-row" id="baseChips"></div></div>
+      </details>
+
+      <p class="muted" style="margin-top:18px;">И несколько понятий именно для этой сферы:</p>
+      <div class="chip-row" id="seedChips"></div>
+
+      <p class="muted">Дополнительный блок: впишите то, что хотите проверить прямо сейчас — новое увлечение, переезд, человека, идею, решение (по одному на строку). Можно оставить пустым и пройти только с готовым списком.</p>
+      <textarea id="customArea" placeholder="Например:&#10;моё призвание&#10;выгорание&#10;новый проект"></textarea>
+
+      <div class="row" style="margin-top:16px;">
+        <label class="inline"><input type="checkbox" id="shuffleCheck" checked> перемешать порядок понятий</label>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn ghost" onclick="goTo('screen-sphere')">Назад</button>
+        <button class="btn" onclick="startTest()">Начать тест</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 3: РАСПРЕДЕЛЕНИЕ ПОНЯТИЙ -->
+  <div id="screen-sort" class="hidden">
+    <div class="progress"><div id="sortProgress" style="width:0%"></div></div>
+    <div class="card concept-card">
+      <p class="muted" style="margin-bottom:8px;">Выберите цвет, который сейчас больше всего подходит к этому понятию</p>
+      <div class="word" id="currentWord">—</div>
+      <div class="swatches" id="sortSwatches"></div>
+    </div>
+    <div class="toolbar">
+      <button class="btn ghost" onclick="prevConcept()">Назад</button>
+      <span class="muted" id="sortCounter" style="align-self:center;"></span>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 4: РАНЖИРОВАНИЕ ЦВЕТОВ -->
+  <div id="screen-rank" class="hidden">
+    <div class="card">
+      <h2>Теперь — про сами цвета</h2>
+      <p class="muted" id="rankPrompt">Из оставшихся выберите цвет, который сейчас нравится больше всего</p>
+      <div class="swatches" id="rankSwatches" style="margin-top:20px;"></div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН 5: РЕЗУЛЬТАТЫ -->
+  <div id="screen-results" class="hidden">
+    <h1>Результат</h1>
+    <p class="muted" id="resultSphereLabel"></p>
+
+    <div class="card">
+      <h2>Порядок цветов по приятности</h2>
+      <div class="rank-list" id="rankResultList"></div>
+    </div>
+
+    <div class="card">
+      <h2>Понятия по группам</h2>
+      <p class="muted" style="margin-top:-6px;">Начиная с самого приятного цвета. Понятия в одной группе — то, что оказалось субъективно связано.</p>
+      <div id="groupsResult" style="margin-top:16px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>Полная таблица</h2>
+      <table id="fullTable"></table>
+    </div>
+
+    <div class="card">
+      <h2>Что уже бросается в глаза</h2>
+      <p class="muted" style="margin-top:-6px;">До конца разобраться, что стоит за этими совпадениями, лучше вместе с психологом. Но кое-что заметно уже сейчас:</p>
+      <div id="patternsResult" style="margin-top:14px;"></div>
+    </div>
+
+    <details>
+      <summary>Как читать результат (памятка для специалиста)</summary>
+      <div class="content">
+        <p>Понятия, оказавшиеся под одним цветом, редко совпадают случайно — стоит спросить, что их объединяет в собственном восприятии человека. Есть смысл двигаться в таком порядке: сначала — что попало под самые приятные цвета; затем — окружение понятий, связанных с интересом и увлечённостью; затем — как соотносятся «моё прошлое / настоящее / будущее» и «какой я есть на самом деле / каким хочу быть»; после этого — что оказалось под самыми неприятными цветами и какие понятия связаны с тревогой, угрозой, неудачей. Наконец, стоит отдельно посмотреть на отношение к конкретным людям и обстоятельствам — с какими цветами и группами оказались связаны, например, «моя работа», «мой отец», «моя мать», «друзья», «дети». Это описание общего принципа работы с методикой, а не готовый диагноз — интерпретация делается вместе с клиентом, через обсуждение, а не вместо него.</p>
+      </div>
+    </details>
+
+    <div class="card cta-card">
+      <h2>Разобрать на сессии</h2>
+      <p id="ctaText">То, что вы сейчас увидели — это не ответ, а место, куда стоит посмотреть внимательнее. Разложить это по полочкам проще не в одиночку.</p>
+      <p class="muted" style="margin-top:-8px;">Дальше это удобнее разобрать на сессии — записаться можно здесь:</p>
+      <div class="toolbar">
+        <a class="btn btn-telegram" href="https://t.me/galina_psy" target="_blank" rel="noopener"><svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M21.5 3.5L2.6 10.8c-1 .4-1 1.8.1 2.1l4.4 1.4 1.7 5.4c.2.6 1 .8 1.4.3l2.5-2.9 4.8 3.5c.7.5 1.7.1 1.9-.7l3.4-15.4c.2-1-.8-1.8-1.7-1.4z"/></svg>Написать в Telegram</a>
+        <a class="btn btn-max" href="https://max.ru/u/f9LHodD0cOLTltEyVxa9vGlcJr3D1GBWNdzkmEyh9jDoZqjRiEelv7mdCTw" target="_blank" rel="noopener"><svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.42 1.13 4.6 2.97 6.17-.13 1.13-.5 2.5-1.47 3.53 1.6.13 3.23-.4 4.5-1.27 1.2.4 2.57.63 4 .63 5.52 0 10-3.94 10-8.8S17.52 3 12 3z"/></svg>Написать в MAX</a>
+      </div>
+      <p class="cta-soft">Пока не готовы писать — можно просто <a href="https://t.me/vasileva_galina_psy" target="_blank" rel="noopener">заглянуть в канал</a>, там я пишу о том, что обычно стоит за такими совпадениями.</p>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn" onclick="copyResult()">Скопировать результат</button>
+      <button class="btn secondary" onclick="window.print()">Сохранить / распечатать</button>
+      <button class="btn ghost" onclick="location.reload()">Пройти заново</button>
+    </div>
+    <textarea id="copyBox" readonly></textarea>
+  </div>
+
+  <div class="site-footer">
+    <div class="footer-dots">
+      <span style="background:#8B8D93"></span><span style="background:#3B5B8C"></span>
+      <span style="background:#4C7A3B"></span><span style="background:#D97F4E"></span>
+      <span style="background:#E8B93B"></span><span style="background:#D98CA0"></span>
+      <span style="background:#9C6B35"></span><span style="background:#3A2E42"></span>
+    </div>
+    <p><b>Галина Васильева.</b> Клинический психолог</p>
+    <div class="social-links">
+      <a href="https://t.me/vasileva_galina_psy" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://vk.ru/vasilevagalina_psy" target="_blank" rel="noopener">VK</a>
+      <a href="https://www.instagram.com/vasileva.psy?igsh=OWw1cm9nNWYzNGJx&amp;utm_source=qr" target="_blank" rel="noopener">Instagram (Запрещён в РФ)</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---------- ПАЛИТРА ----------
+// Порядок цветов перемешивается при каждой загрузке страницы (в том числе
+// при повторном прохождении через «Пройти заново», которое перезагружает
+// страницу) — так позиция цвета в сетке не привязывается к конкретному цвету.
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]] = [arr[j],arr[i]];
+  }
+  return arr;
+}
+const COLORS = shuffleArray([
+  {hex:'#8B8D93'}, // графитовый серый
+  {hex:'#3B5B8C'}, // индиго
+  {hex:'#4C7A3B'}, // лесной зелёный
+  {hex:'#D97F4E'}, // терракотовый
+  {hex:'#E8B93B'}, // подсолнечный жёлтый
+  {hex:'#D98CA0'}, // пыльная роза
+  {hex:'#9C6B35'}, // коньячный коричневый
+  {hex:'#3A2E42'}  // сливовый (вместо чёрного)
+]);
+
+// ---------- БАЗОВЫЙ СПИСОК (всегда входит в тест, при любой сфере) ----------
+const CORE = ['Успех','Общение','Неудача','Свобода','Люди','Ссоры',
+  'Мой отец','Природа','Каким я хочу быть','Любовь','Работа','Опасность','Моя мать',
+  'Лидерство','Друзья','Моё настоящее','Конкуренция','Радость','Семья',
+  'Моё прошлое','Какой я на самом деле','Доход','Перемены','Грусть','Мой дом',
+  'Моё увлечение','Деньги','Проблемы','Интересное занятие',
+  'Дети','Страх','Мои обязательства','Моё будущее','Раздражение','Творчество',
+  'Финансовое благополучие','Желанная цель','Быт','Руководство',
+  'Моя профессия','Известность','Влечение','Скука','Организованность','Моя карьера'];
+
+// ---------- СФЕРЫ (добавляются к базовому списку, без повторов) ----------
+const SPHERES = {
+  cause: {
+    title: 'Реализация',
+    desc: 'Поиск любимого дела, призвание, работа, интерес',
+    seeds: ['Моё дело','Талант','Смысл','Признание','Застой','Вдохновение'],
+    cta: 'Если то, что вы увидели про своё дело, отзывается растерянностью — можно разобраться, что за этим стоит, вместе.'
+  },
+  relations: {
+    title: 'Отношения',
+    desc: 'Близость, партнёрство, семья, люди рядом',
+    seeds: ['Близость','Доверие','Одиночество','Конфликт','Забота'],
+    cta: 'Если что-то про отношения зацепило и не отпускает — такие вещи легче распутывать не в одиночку.'
+  },
+  state: {
+    title: 'Состояние',
+    desc: 'Самочувствие, эмоции, тело, ресурс',
+    seeds: ['Покой','Тревога','Усталость','Ресурс','Тело','Напряжение'],
+    cta: 'Если увиденное про своё состояние отозвалось тревогой или узнаванием — это повод поговорить, а не додумывать самому.'
+  },
+  money: {
+    title: 'Деньги',
+    desc: 'Заработок, достаток, отношение к деньгам',
+    seeds: ['Достаток','Долг','Щедрость','Страх нехватки','Безопасность'],
+    cta: 'Если тема денег отозвалась сильнее, чем ожидали — стоит разобраться, что за этим стоит, а не переживать в одиночку.'
+  },
+  stuck: {
+    title: 'Застревание в жизни',
+    desc: 'Тупик, топтание на месте, кризис, выход',
+    seeds: ['Тупик','Страх шага','Опора','Выход','Ожидание','Бег на месте'],
+    cta: 'Если чувствуете, что застряли, но не понимаете в чём затык — можно разобрать это вместе.'
+  }
+};
+const DEFAULT_CTA = 'То, что вы сейчас увидели — это не ответ, а место, куда стоит посмотреть внимательнее. Разложить это по полочкам проще не в одиночку.';
+
+let selectedSphere = null;
+let concepts = [];
+let customWords = [];
+let assignments = {}; // word -> colorIndex
+let currentIndex = 0;
+let ranking = []; // color indices in order of preference (most -> least)
+let remainingForRank = [];
+
+// ---------- МАРКЕРЫ ДЛЯ АНАЛИЗА ЗАКОНОМЕРНОСТЕЙ ----------
+const NEGATIVE_MARKERS = ['Неудача','Страх','Опасность','Раздражение','Грусть','Проблемы','Скука',
+  'Ссоры','Конфликт','Одиночество','Тревога','Напряжение','Тупик','Долг','Страх нехватки',
+  'Страх шага','Застой','Бег на месте'];
+const POSITIVE_MARKERS = ['Радость','Любовь','Успех','Свобода','Желанная цель','Вдохновение',
+  'Забота','Доверие','Близость','Покой','Ресурс','Достаток','Щедрость','Опора','Выход'];
+
+function joinRu(arr, cap=3){
+  const shown = arr.slice(0, cap);
+  const rest = arr.length - shown.length;
+  const quoted = shown.map(w=>`«${w}»`);
+  let joined = quoted.length === 1 ? quoted[0] : quoted.slice(0,-1).join(', ') + ' и ' + quoted[quoted.length-1];
+  if(rest > 0) joined += ` и ещё ${rest}`;
+  return joined;
+}
+function rankPos(colorIdx){ return ranking.indexOf(colorIdx); } // 0 = самый приятный
+function groupMates(w){
+  if(!(w in assignments)) return [];
+  const c = assignments[w];
+  return concepts.filter(x => x !== w && assignments[x] === c);
+}
+
+function generatePatterns(){
+  const found = [];
+
+  // 1. Свои слова (дополнительный блок) — совпадения с негативными/позитивными маркерами
+  customWords.forEach(w=>{
+    if(!(w in assignments)) return;
+    const mates = groupMates(w);
+    const neg = mates.filter(m => NEGATIVE_MARKERS.includes(m));
+    const pos = mates.filter(m => POSITIVE_MARKERS.includes(m));
+    if(neg.length){
+      found.push({p:3, text:`«${w}» оказалось в одной группе с ${joinRu(neg)} — стоит присмотреться, что стоит за этим стопором, а не критиковать себя.`});
+    }
+    if(pos.length){
+      found.push({p:2, text:`«${w}» оказалось рядом с ${joinRu(pos)} — похоже, это ресурс, на который можно опереться.`});
+    }
+  });
+
+  // 2. Какой я на самом деле / Каким я хочу быть
+  if(('Какой я на самом деле' in assignments) && ('Каким я хочу быть' in assignments)){
+    const c1 = assignments['Какой я на самом деле'], c2 = assignments['Каким я хочу быть'];
+    if(c1 === c2){
+      found.push({p:3, text:'«Какой я на самом деле» и «Каким я хочу быть» оказались под одним цветом — сейчас вы близки к тому, каким хотите быть.'});
+    } else if(Math.abs(rankPos(c1)-rankPos(c2)) >= 4){
+      found.push({p:3, text:'«Какой я на самом деле» и «Каким я хочу быть» оказались далеко друг от друга по цвету — заметен разрыв между тем, какой вы сейчас, и тем, каким хотите быть.'});
+    }
+  }
+
+  // 3. Моё будущее / моё прошлое — где оказались по приятности
+  if('Моё будущее' in assignments){
+    const pos = rankPos(assignments['Моё будущее']);
+    if(pos <= 1) found.push({p:2, text:'«Моё будущее» попало в один из самых приятных цветов — в целом ощущение будущего сейчас скорее светлое.'});
+    if(pos >= 6) found.push({p:3, text:'«Моё будущее» оказалось в одном из наименее приятных цветов — похоже, с будущим сейчас связано напряжение, стоит обсудить это отдельно.'});
+  }
+  if('Моё прошлое' in assignments){
+    const pos = rankPos(assignments['Моё прошлое']);
+    if(pos >= 6) found.push({p:2, text:'«Моё прошлое» оказалось под одним из наименее приятных цветов — возможно, там есть что-то незавершённое.'});
+  }
+
+  // 4. Увлечение и дело/работа — совпадают или нет
+  if('Моё увлечение' in assignments){
+    const mates = groupMates('Моё увлечение');
+    const workWords = mates.filter(m => ['Работа','Моя профессия','Моя карьера'].includes(m));
+    if(workWords.length) found.push({p:2, text:`«Моё увлечение» оказалось в одной группе с ${joinRu(workWords)} — интерес и дело сейчас совпадают.`});
+  }
+
+  // 5. Понятия выбранной сферы рядом с негативными маркерами
+  if(selectedSphere){
+    SPHERES[selectedSphere].seeds.forEach(s=>{
+      if(!(s in assignments)) return;
+      const neg = groupMates(s).filter(m => NEGATIVE_MARKERS.includes(m));
+      if(neg.length) found.push({p:2, text:`«${s}» (тема «${SPHERES[selectedSphere].title}») оказалось рядом с ${joinRu(neg)} — возможно, здесь есть внутреннее сопротивление.`});
+    });
+  }
+
+  // 6. Самая многочисленная цветовая группа
+  const counts = {};
+  concepts.forEach(w=>{ const c = assignments[w]; counts[c] = (counts[c]||0)+1; });
+  const maxCount = Math.max(0, ...Object.values(counts));
+  if(maxCount >= 6){
+    found.push({p:1, text:`Больше всего понятий (${maxCount}) оказалось под одним цветом — сейчас это как будто центр тяжести. Стоит посмотреть, что туда попало.`});
+  }
+
+  found.sort((a,b)=>b.p-a.p);
+  const top = found.slice(0,6).map(f=>f.text);
+  if(top.length === 0){
+    top.push('Явных совпадений не бросилось в глаза — это тоже нормально: не все закономерности видны сразу.');
+  }
+  return top;
+}
+
+function goTo(id){
+  ['screen-about','screen-sphere','screen-words','screen-sort','screen-rank','screen-results'].forEach(s=>{
+    document.getElementById(s).classList.toggle('hidden', s !== id);
+  });
+}
+
+// ---------- ЭКРАН ВЫБОРА СФЕРЫ ----------
+function renderSpheres(){
+  const list = document.getElementById('sphereList');
+  list.innerHTML = '';
+  Object.keys(SPHERES).forEach(key=>{
+    const s = SPHERES[key];
+    const div = document.createElement('div');
+    div.className = 'sphere-opt' + (key===selectedSphere ? ' active' : '');
+    div.innerHTML = `<b>${s.title}</b><span>${s.desc}</span>`;
+    div.onclick = ()=>{ selectedSphere = key; renderSpheres(); document.getElementById('toWordsBtn').disabled = false; };
+    list.appendChild(div);
+  });
+}
+renderSpheres();
+
+// ---------- ЭКРАН СЛОВ ----------
+function enterWordsScreen(){
+  const s = SPHERES[selectedSphere];
+  document.getElementById('wordsTitle').textContent = s.title;
+  document.getElementById('baseNote').textContent =
+    `Базовый список из ${CORE.length} понятий всегда входит в тест — он общий для всех сфер.`;
+  document.getElementById('baseChips').innerHTML = CORE.map(w=>`<span class="chip">${w}</span>`).join('');
+  const chips = document.getElementById('seedChips');
+  chips.innerHTML = s.seeds.map(w=>`<span class="chip">${w}</span>`).join('');
+  document.getElementById('customArea').value = '';
+}
+// hook into goTo for screen-words
+const _origGoTo = goTo;
+goTo = function(id){
+  if(id === 'screen-words') enterWordsScreen();
+  _origGoTo(id);
+};
+
+function startTest(){
+  const s = SPHERES[selectedSphere];
+  const custom = document.getElementById('customArea').value
+    .split('\n').map(x=>x.trim()).filter(Boolean);
+  customWords = custom.slice();
+  concepts = [...CORE, ...s.seeds, ...custom];
+  // убрать дубликаты, сохраняя порядок
+  concepts = concepts.filter((w,i)=>concepts.indexOf(w)===i);
+
+  if(document.getElementById('shuffleCheck').checked){
+    for(let i=concepts.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [concepts[i],concepts[j]] = [concepts[j],concepts[i]];
+    }
+  }
+  assignments = {};
+  currentIndex = 0;
+  goTo('screen-sort');
+  renderSortSwatchesStatic();
+  showConcept();
+}
+
+// ---------- ЭКРАН РАСПРЕДЕЛЕНИЯ ----------
+function renderSortSwatchesStatic(){
+  const box = document.getElementById('sortSwatches');
+  box.innerHTML = '';
+  COLORS.forEach((c,i)=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch';
+    sw.style.background = c.hex;
+    sw.id = 'sortSwatch'+i;
+    sw.onclick = ()=> pickColor(i);
+    box.appendChild(sw);
+  });
+}
+function showConcept(){
+  document.getElementById('currentWord').textContent = concepts[currentIndex];
+  document.getElementById('sortCounter').textContent = `${currentIndex+1} из ${concepts.length}`;
+  document.getElementById('sortProgress').style.width = ((currentIndex)/concepts.length*100)+'%';
+  COLORS.forEach((c,i)=>{
+    document.getElementById('sortSwatch'+i).classList.toggle('picked', assignments[concepts[currentIndex]] === i);
+  });
+}
+function pickColor(i){
+  assignments[concepts[currentIndex]] = i;
+  if(currentIndex < concepts.length - 1){
+    currentIndex++;
+    showConcept();
+  } else {
+    document.getElementById('sortProgress').style.width = '100%';
+    setTimeout(startRanking, 200);
+  }
+}
+function prevConcept(){
+  if(currentIndex > 0){
+    currentIndex--;
+    showConcept();
+  } else {
+    goTo('screen-words');
+  }
+}
+
+// ---------- ЭКРАН РАНЖИРОВАНИЯ ----------
+function startRanking(){
+  goTo('screen-rank');
+  ranking = [];
+  remainingForRank = COLORS.map((_,i)=>i);
+  renderRankSwatches();
+}
+function renderRankSwatches(){
+  const box = document.getElementById('rankSwatches');
+  box.innerHTML = '';
+  const left = remainingForRank.length;
+  document.getElementById('rankPrompt').textContent =
+    left === COLORS.length ? 'Выберите цвет, который сейчас нравится больше всего' :
+    left === 1 ? 'Остался последний цвет' :
+    'Из оставшихся выберите самый приятный сейчас цвет';
+  COLORS.forEach((c,i)=>{
+    const sw = document.createElement('div');
+    sw.className = 'swatch' + (remainingForRank.includes(i) ? '' : ' disabled');
+    sw.style.background = c.hex;
+    sw.onclick = ()=> pickRank(i);
+    box.appendChild(sw);
+  });
+}
+function pickRank(i){
+  if(!remainingForRank.includes(i)) return;
+  ranking.push(i);
+  remainingForRank = remainingForRank.filter(x=>x!==i);
+  if(remainingForRank.length === 0){
+    showResults();
+  } else {
+    renderRankSwatches();
+  }
+}
+
+// ---------- ЭКРАН РЕЗУЛЬТАТОВ ----------
+function showResults(){
+  goTo('screen-results');
+  document.getElementById('resultSphereLabel').textContent = 'Сфера: ' + SPHERES[selectedSphere].title;
+  document.getElementById('ctaText').textContent = (SPHERES[selectedSphere] && SPHERES[selectedSphere].cta) || DEFAULT_CTA;
+
+  const rankList = document.getElementById('rankResultList');
+  rankList.innerHTML = '';
+  ranking.forEach((colorIdx, pos)=>{
+    const row = document.createElement('div');
+    row.className = 'rank-row';
+    row.innerHTML = `<span class="num">${pos+1}</span><div class="rank-swatch" style="background:${COLORS[colorIdx].hex}"></div>`;
+    rankList.appendChild(row);
+  });
+
+  const groupsBox = document.getElementById('groupsResult');
+  groupsBox.innerHTML = '';
+  ranking.forEach(colorIdx=>{
+    const words = concepts.filter(w => assignments[w] === colorIdx);
+    if(words.length === 0) return;
+    const g = document.createElement('div');
+    g.className = 'group';
+    g.innerHTML = `<div class="head"><div class="chip-sw" style="background:${COLORS[colorIdx].hex}"></div><b>${words.length} ${words.length===1?'понятие':'понятий'}</b></div>
+      <ul>${words.map(w=>`<li>${w}</li>`).join('')}</ul>`;
+    groupsBox.appendChild(g);
+  });
+
+  const table = document.getElementById('fullTable');
+  table.innerHTML = '<tr><th>Понятие</th><th>Цвет</th></tr>' +
+    concepts.map(w=>`<tr><td>${w}</td><td><span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${COLORS[assignments[w]].hex};vertical-align:middle;margin-right:6px;"></span></td></tr>`).join('');
+
+  const patterns = generatePatterns();
+  document.getElementById('patternsResult').innerHTML =
+    patterns.map((t,i)=>`<div class="pattern-item" style="border-left-color:${COLORS[i % COLORS.length].hex}">${t}</div>`).join('');
+}
+
+function copyResult(){
+  let text = 'ЦВЕТОВЫЕ НИТИ (цветовой ассоциативный тест) — результат\n';
+  text += 'Сфера: ' + SPHERES[selectedSphere].title + '\n\n';
+  text += 'Порядок цветов по приятности (1 — самый приятный):\n';
+  ranking.forEach((c,i)=>{ text += `${i+1}. цвет ${c+1} (${COLORS[c].hex})\n`; });
+  text += '\nГруппы понятий по цветам:\n';
+  ranking.forEach(colorIdx=>{
+    const words = concepts.filter(w => assignments[w] === colorIdx);
+    if(words.length === 0) return;
+    text += `\nЦвет ${colorIdx+1} (${COLORS[colorIdx].hex}):\n`;
+    words.forEach(w=> text += `  - ${w}\n`);
+  });
+  text += '\nЧто уже бросается в глаза (до конца разобраться лучше вместе с психологом):\n';
+  generatePatterns().forEach(p => text += `  - ${p}\n`);
+  const box = document.getElementById('copyBox');
+  box.value = text;
+  box.style.display = 'block';
+  box.select();
+  document.execCommand('copy');
+  box.style.display = 'none';
+  alert('Результат скопирован в буфер обмена');
+}
+</script>
+</body>
+</html>
