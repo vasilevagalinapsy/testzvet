@@ -365,8 +365,8 @@ document.addEventListener("click", function (e) {
   var a = e.target.closest && e.target.closest("a[href]");
   if (!a) return;
   var h = a.href, cel = null;
-  if (/t\.me\/galina_psy|max\.ru\/u\//.test(h)) cel = "napisat";
-  else if (/t\.me\/(s\/)?vasileva_galina_psy/.test(h)) cel = "kanal";
+  if (/t\.me\/galina_psy|max\.ru\/u\/f9LHodD0cOLTltEy/.test(h)) cel = "napisat";
+  else if (/t\.me\/(s\/)?vasileva_galina_psy|t\.me\/otziv_vasileva|max\.ru\/u\/f9LHodD0cOLcLOBA33|vk\.(ru|com)\/vasilevagalina_psy|instagram\.com\/vasileva\.psy/.test(h)) cel = "kanal";
   else if (/^https?:\/\/(www\.)?vasilevagalina\.ru/.test(h)) cel = "sayt";
   else if (/^https?:\/\/lab\.vasilevagalina\.ru/.test(h)) cel = "laboratoriya";
   else if (/^https?:\/\/[a-z-]+\.vasilevagalina\.ru/.test(h)) cel = "prilozhenie";
