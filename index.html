@@ -357,6 +357,33 @@
     .card{padding:20px;}
   }
 </style>
+<!-- Яндекс Метрика: начало (tools/vstavit-metriku.py) -->
+<script>
+(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+ym(113830075, "init", {clickmap:false, trackLinks:true, accurateTrackBounce:true, webvisor:false});
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest("a[href]");
+  if (!a) return;
+  var h = a.href, cel = null;
+  if (/t\.me\/galina_psy|max\.ru\/u\//.test(h)) cel = "napisat";
+  else if (/t\.me\/(s\/)?vasileva_galina_psy/.test(h)) cel = "kanal";
+  else if (/^https?:\/\/(www\.)?vasilevagalina\.ru/.test(h)) cel = "sayt";
+  if (cel) ym(113830075, "reachGoal", cel);
+}, true);
+document.addEventListener("DOMContentLoaded", function () {
+  try { if (localStorage.getItem("cookie-ok")) return; } catch (e) {}
+  var p = document.createElement("div");
+  p.setAttribute("role", "status");
+  p.style.cssText = "position:fixed;left:12px;right:12px;bottom:12px;z-index:99999;max-width:520px;margin:0 auto;display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:12px;background:rgba(24,22,28,.92);color:#fff;font:13px/1.4 system-ui,-apple-system,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.2)";
+  p.innerHTML = '<span style="flex:1">Сайт считает посещения через Яндекс Метрику — это файлы cookie.</span><button type="button" style="flex:none;border:0;border-radius:8px;padding:6px 12px;background:#fff;color:#18161c;font:inherit;cursor:pointer">Понятно</button>';
+  p.querySelector("button").onclick = function () {
+    try { localStorage.setItem("cookie-ok", "1"); } catch (e) {}
+    p.remove();
+  };
+  document.body.appendChild(p);
+});
+</script>
+<!-- Яндекс Метрика: конец -->
 </head>
 <body>
 <div class="brand-strip"></div>
@@ -504,11 +531,11 @@
     </details>
 
     <div class="card cta-card">
-      <h2>Разобрать на сессии</h2>
+      <h2>Разобрать вместе</h2>
       <p id="ctaText">То, что вы сейчас увидели — это не ответ, а место, куда стоит посмотреть внимательнее. Разложить это по полочкам проще не в одиночку.</p>
-      <p class="muted" style="margin-top:-8px;">Дальше это удобнее разобрать на сессии — записаться можно здесь:</p>
+      <p class="muted" style="margin-top:-8px;">Дальше это удобнее разобрать на диагностике (30 минут · 3 000 ₽) — записаться можно здесь:</p>
       <div class="toolbar">
-        <a class="btn btn-telegram" href="https://t.me/galina_psy" target="_blank" rel="noopener"><svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M21.5 3.5L2.6 10.8c-1 .4-1 1.8.1 2.1l4.4 1.4 1.7 5.4c.2.6 1 .8 1.4.3l2.5-2.9 4.8 3.5c.7.5 1.7.1 1.9-.7l3.4-15.4c.2-1-.8-1.8-1.7-1.4z"/></svg>Написать в Telegram</a>
+        <a class="btn btn-telegram" href="https://t.me/galina_psy?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9F%D0%B8%D1%88%D1%83%20%D0%B8%D0%B7%20%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F%20%C2%AB%D0%A6%D0%B2%D0%B5%D1%82%D0%BE%D0%B2%D1%8B%D0%B5%20%D0%BD%D0%B8%D1%82%D0%B8%C2%BB%20%D0%B8%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D1%83%20%2830%20%D0%BC%D0%B8%D0%BD%D1%83%D1%82%29." target="_blank" rel="noopener"><svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M21.5 3.5L2.6 10.8c-1 .4-1 1.8.1 2.1l4.4 1.4 1.7 5.4c.2.6 1 .8 1.4.3l2.5-2.9 4.8 3.5c.7.5 1.7.1 1.9-.7l3.4-15.4c.2-1-.8-1.8-1.7-1.4z"/></svg>Написать в Telegram</a>
         <a class="btn btn-max" href="https://max.ru/u/f9LHodD0cOLTltEyVxa9vGlcJr3D1GBWNdzkmEyh9jDoZqjRiEelv7mdCTw" target="_blank" rel="noopener"><svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.42 1.13 4.6 2.97 6.17-.13 1.13-.5 2.5-1.47 3.53 1.6.13 3.23-.4 4.5-1.27 1.2.4 2.57.63 4 .63 5.52 0 10-3.94 10-8.8S17.52 3 12 3z"/></svg>Написать в MAX</a>
       </div>
       <p class="cta-soft">Пока не готовы писать — можно просто <a href="https://t.me/vasileva_galina_psy" target="_blank" rel="noopener">заглянуть в канал</a>, там я пишу о том, что обычно стоит за такими совпадениями.</p>
